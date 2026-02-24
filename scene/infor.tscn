@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://0yst2rwe42bg"]
+
+[ext_resource type="Texture2D" uid="uid://4wmgt80vvovn" path="res://infor.png" id="1_i207o"]
+[ext_resource type="Script" uid="uid://chcniw4e1eo3n" path="res://script/infor.gd" id="2_kscx7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kscx7"]
+bg_color = Color(0.11489678, 0.11489683, 0.11489671, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="infor" type="TextureRect"]
+anchors_preset = -1
+offset_right = 19.0
+offset_bottom = 19.129425
+texture = ExtResource("1_i207o")
+expand_mode = 1
+script = ExtResource("2_kscx7")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+show_behind_parent = true
+layout_mode = 0
+offset_left = -221.0
+offset_top = 22.0
+offset_right = 135.0
+offset_bottom = 45.0
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
+
+[node name="Panel" type="Panel" parent="Label"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kscx7")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
