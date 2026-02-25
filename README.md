@@ -7,4 +7,4 @@ Principle: After compressing the non-embedded EXE with UPX, directly add the bin
 Of course, you don't need to know all that. Just download it and use it directly!
 (The release version includes upx.exe, so you don't need to download it separately. Of course, you can also replace it with other versions of upx.)
 
-suport English(en) and 中文简体(zh-CN)
+support English(en) and 中文简体(zh-CN)
