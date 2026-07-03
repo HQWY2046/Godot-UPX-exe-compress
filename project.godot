@@ -13,11 +13,11 @@ config_version=5
 config/name="GDUPX"
 run/main_scene="uid://cywi4ol2lpe85"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://wp7iv2an0bct"
 
 [autoload]
 
-Global="*res://global.gd"
+Global="*res://script/global.gd"
 
 [debug]
 
@@ -32,3 +32,8 @@ window/size/maximize_disabled=true
 [internationalization]
 
 locale/translations=PackedStringArray("res://gdupx_translation_text.en.translation", "res://gdupx_translation_text.zh_CN.translation")
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

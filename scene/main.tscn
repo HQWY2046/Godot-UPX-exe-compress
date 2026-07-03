@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://cywi4ol2lpe85"]
+[gd_scene load_steps=20 format=3 uid="uid://cywi4ol2lpe85"]
 
 [ext_resource type="PackedScene" uid="uid://0yst2rwe42bg" path="res://scene/infor.tscn" id="1_itxqv"]
 [ext_resource type="Script" uid="uid://n0uoq6k31a18" path="res://script/main.gd" id="1_v0l8b"]
-[ext_resource type="Texture2D" uid="uid://eye1fy0ubhs2" path="res://Asset 1.png" id="2_wp4xf"]
-[ext_resource type="Texture2D" uid="uid://cm5okok4ae7tp" path="res://Asset 53.png" id="3_brvut"]
-[ext_resource type="Texture2D" uid="uid://chttqo37h3go2" path="res://Asset 76.png" id="4_0ha60"]
+[ext_resource type="Texture2D" uid="uid://eye1fy0ubhs2" path="res://texture/Asset 1.png" id="2_wp4xf"]
+[ext_resource type="Texture2D" uid="uid://cm5okok4ae7tp" path="res://texture/Asset 53.png" id="3_brvut"]
+[ext_resource type="Texture2D" uid="uid://chttqo37h3go2" path="res://texture/Asset 76.png" id="4_0ha60"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wp4xf"]
 
@@ -100,6 +100,206 @@ func _on_item_selected(index: int) -> void:
 			TranslationServer.set_locale(\"zh-CN\")
 			Global.set_dic[name] = 1
 "
+
+[sub_resource type="GDScript" id="GDScript_p1hux"]
+script/source = "extends Window
+
+signal thread_finished
+@export var animation_player: AnimationPlayer
+
+@onready var fun: Label = $MarginContainer/HBoxContainer/fun
+
+
+func _ready() -> void:
+	visible = false
+
+	
+func show_win():
+	fun.text = \"Word\"+str(randi_range(1,7))
+	visible = true
+	animation_player.play(\"idle\")
+
+
+	
+func hide_win():
+	animation_player.stop()
+	visible = false
+
+	
+	
+
+		
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ha60"]
+bg_color = Color(0.27450982, 0.27450982, 0.27450982, 0.8745098)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.46229053, 0.46229064, 0.46229035, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Animation" id="Animation_4j5ol"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("point1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("point2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(31, 31)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("point1:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8.999985, 9)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("point2:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8.999981, 9)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("point3:size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, 9)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("point3:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15, 16)]
+}
+
+[sub_resource type="Animation" id="Animation_0ha60"]
+resource_name = "idle"
+length = 3.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("point1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.2, 2.2, 2.4, 3.4, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(31, 0), Vector2(31, 0), Vector2(31, 0), Vector2(31, 0), Vector2(31, 31), Vector2(31, 31)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("point2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.2, 2.2, 2.4, 3.4, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(31, 31), Vector2(0, 31), Vector2(0, 31), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("point1:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 1.2, 2.2, 2.4, 3.4, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(8.999985, 9), Vector2(8.999985, 9), Vector2(8.999985, 40), Vector2(8.999985, 40), Vector2(8.999985, 9), Vector2(8.999985, 9)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("point2:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(1, 1.2, 2.2, 2.4, 3.4, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(8.999981, 9), Vector2(8.999981, 9), Vector2(8.999981, 40), Vector2(8.999981, 40), Vector2(8.999981, 9), Vector2(8.999981, 9)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("point3:size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(1, 1.2, 2.2, 2.4, 3.4, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(9, 9), Vector2(9, 9), Vector2(9, 40), Vector2(9, 40), Vector2(9, 9), Vector2(9, 9)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("point3:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(1, 1.2, 2.2, 2.4, 3.4, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(15, 16), Vector2(15, 16), Vector2(15, 0), Vector2(15, 0), Vector2(15, 16), Vector2(15, 16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p1hux"]
+_data = {
+&"RESET": SubResource("Animation_4j5ol"),
+&"idle": SubResource("Animation_0ha60")
+}
 
 [node name="main" type="Control"]
 layout_mode = 3
@@ -423,14 +623,13 @@ offset_top = 17.0
 offset_right = -10.272034
 offset_bottom = 40.816
 theme_override_font_sizes/font_size = 15
-text = "1.0.0"
+text = "1.1.0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="infor" parent="name" instance=ExtResource("1_itxqv")]
 texture_filter = 2
 layout_mode = 0
-anchors_preset = 0
 offset_left = 453.0
 offset_top = 18.0
 offset_right = 472.0
@@ -460,6 +659,130 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+
+[node name="upx_win" type="Window" parent="." node_paths=PackedStringArray("animation_player")]
+transparent_bg = true
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(330, 195)
+visible = false
+transient = true
+exclusive = true
+borderless = true
+transparent = true
+script = SubResource("GDScript_p1hux")
+animation_player = NodePath("MarginContainer/HBoxContainer/Control/Control/AnimationPlayer")
+
+[node name="Panel" type="Panel" parent="upx_win"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ha60")
+
+[node name="MarginContainer" type="MarginContainer" parent="upx_win"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="VBoxContainer" parent="upx_win/MarginContainer"]
+layout_mode = 2
+
+[node name="headline" type="Label" parent="upx_win/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "UpxRunning"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="upx_win/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="Control" type="Control" parent="upx_win/MarginContainer/HBoxContainer/Control"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+size_flags_stretch_ratio = 7.0
+
+[node name="point1" type="ColorRect" parent="upx_win/MarginContainer/HBoxContainer/Control/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = -11.000015
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="point2" type="ColorRect" parent="upx_win/MarginContainer/HBoxContainer/Control/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 19.99998
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="point3" type="ColorRect" parent="upx_win/MarginContainer/HBoxContainer/Control/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="upx_win/MarginContainer/HBoxContainer/Control/Control"]
+libraries = {
+&"": SubResource("AnimationLibrary_p1hux")
+}
+speed_scale = 2.0
+
+[node name="fun" type="Label" parent="upx_win/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(2, 2)
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0.8089983, 0.8089983, 0.8089982, 1)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="item_selected" from="ColorRect/MarginContainer/VBoxContainer/HBoxContainer6/CompressionMode" to="ColorRect/MarginContainer/VBoxContainer/HBoxContainer6/CompressionMode" method="_on_item_selected"]

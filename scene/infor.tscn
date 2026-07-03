@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://0yst2rwe42bg"]
 
-[ext_resource type="Texture2D" uid="uid://4wmgt80vvovn" path="res://infor.png" id="1_i207o"]
+[ext_resource type="Texture2D" uid="uid://djcqlpp8hm84e" path="res://texture/infor.png" id="1_i207o"]
 [ext_resource type="Script" uid="uid://chcniw4e1eo3n" path="res://script/infor.gd" id="2_kscx7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kscx7"]
@@ -15,7 +15,6 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [node name="infor" type="TextureRect"]
-anchors_preset = -1
 offset_right = 19.0
 offset_bottom = 19.129425
 texture = ExtResource("1_i207o")
