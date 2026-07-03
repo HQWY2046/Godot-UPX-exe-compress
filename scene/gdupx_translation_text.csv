@@ -1,0 +1,36 @@
+,en,zh-CN
+infor_introduce,"Godot GUI UPX: This provides a GUI for the embedded open-source software UPX (version 5.0.1). It also, through simple processing, enables UPX to compress Godot-made executable (.exe) files that contain embedded .pck files, which UPX normally cannot compress by default.
+
+Note: When selecting the target exe file, ensure that it does not have an embedded pck and that its pck exists in the same directory. The final result will be an exe with an embedded pck. Please note that exe files exported by Godot versions below 4.5 (excluding 4.5) may not function properly after being processed by this software.
+
+UPX: This is an open-source executable (.exe) compressor. The compressed result remains a directly executable .exe file and does not require manual decompression to run.","Godot GUI UPX :为内嵌的开源软件 UPX ( 5.0.1 ) 提供GUI界面，并且通过简单处理让UPX可以压缩原本无法压缩的内嵌pck的Godot制作的exe可执行文件。
+
+注意：选择目标exe文件时要确保它没有内嵌pck并且同目录下存在它的pck，最终结果会是个内嵌pck的exe。4.5以下（不包括4.5）版本的Godot导出的exe经过本软件处理后可能无法正常使用，请注意。
+
+UPX （https://github.com/upx/upx）：一款开源 exe 压缩器，压缩结果依旧为 exe 可执行文件，无需手动解压。"
+CompressionLevels,Compression Levels,压缩级别：
+1_fast,1 (Fastest),1（最快）
+10_best,10 (--best),10（最小）(--best)
+KeepBackupFiles,Keep backup files,自动备份原始文件：
+Yes,Yes,开启
+No,No,关闭
+exePath,exe file path,exe路径：
+Cancel,Cancel,取消
+Open,Open,打开
+Choose_a_exe,Choose a exe,选择目标exe文件：
+SavePath,Save path,保存路径：
+LZMACompression,LZMA compression,LZMA压缩：
+LZMAYes,Yes(compresses better),开启（压缩率高，加载慢）
+LZMANo,No,关闭
+CompressionMode,Compression mode,压缩模式：
+Normal,Normal,正常
+GD,exe of Godot,Godot导出的软件
+Compression,Compression,压缩
+UpxRunning,UPX is Running,UPX正在运行中
+Word1,UPX is being enslaved...,UPX被奴役中...
+Word2,The file is trying to lose weight under UPX's despotic power,文件正在努力减肥，在UPX的淫威之下...
+Word3,Teaching your executable how to shut up and fitness...,正在教你的可执行文件如何闭嘴迈开腿...
+Word4,Casting UPX compression spells. Please stand back from the monitor...,正在施展 UPX 压缩魔法，请离显示器远一点，以防被吸进去...
+Word5,"Go out and have some fun before coming back. This author’s such a slacker—ran into a little trouble while trying to read the real-time progress and just gave up, and now there’s not even a progress bar.",出去玩玩再回来吧。作者是个懒逼，因为尝试读取实时进度时遇到问题就放弃了，导致没有进度条。
+Word6,"I'm turning your giant garbage into tiny garbage. Ugh, don't hit me",​正在把你的巨型垃圾变成微型垃圾。呃啊，不要揍我
+Word7,Insert a witty loading line here. (I was too lazy to write one.),此处本该有一句俏皮话，但我懒得编了。

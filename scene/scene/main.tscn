@@ -1,0 +1,801 @@
+[gd_scene load_steps=20 format=3 uid="uid://cywi4ol2lpe85"]
+
+[ext_resource type="PackedScene" uid="uid://0yst2rwe42bg" path="res://scene/infor.tscn" id="1_itxqv"]
+[ext_resource type="Script" uid="uid://n0uoq6k31a18" path="res://script/main.gd" id="1_v0l8b"]
+[ext_resource type="Texture2D" uid="uid://eye1fy0ubhs2" path="res://texture/Asset 1.png" id="2_wp4xf"]
+[ext_resource type="Texture2D" uid="uid://cm5okok4ae7tp" path="res://texture/Asset 53.png" id="3_brvut"]
+[ext_resource type="Texture2D" uid="uid://chttqo37h3go2" path="res://texture/Asset 76.png" id="4_0ha60"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wp4xf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_brvut"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_no8bm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.23921569, 0.23921569, 0.23921569, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="Theme" id="Theme_no8bm"]
+Button/styles/focus = SubResource("StyleBoxEmpty_wp4xf")
+Label/font_sizes/font_size = 33
+OptionButton/styles/focus = SubResource("StyleBoxEmpty_brvut")
+Panel/styles/panel = SubResource("StyleBoxFlat_no8bm")
+
+[sub_resource type="GDScript" id="GDScript_wp4xf"]
+script/source = "extends OptionButton
+func _ready() -> void:
+	var index = Global.set_dic.get(name)
+	if index is int:
+		selected = index
+		item_selected.emit(selected)
+		
+func _on_item_selected(index: int) -> void:
+	Global.set_dic[name] = index
+"
+
+[sub_resource type="GDScript" id="GDScript_brvut"]
+script/source = "extends LineEdit
+func _ready() -> void:
+	var the_text = Global.set_dic.get(name)
+	if the_text is String:
+		text = the_text
+		
+
+
+
+func _on_focus_exited() -> void:
+	Global.set_dic[name] = text
+
+
+func _on_file_dialog_file_selected(path: String) -> void:
+	text = path
+	Global.set_dic[name] = text
+"
+
+[sub_resource type="GDScript" id="GDScript_0ha60"]
+script/source = "extends Button
+
+@onready var file_dialog: FileDialog = $FileDialog
+@export var aim_line_edit: LineEdit
+func _on_pressed() -> void:
+	if aim_line_edit:
+		if DirAccess.dir_exists_absolute(aim_line_edit.text.get_base_dir()):
+			file_dialog.current_dir = aim_line_edit.text.get_base_dir()
+	file_dialog.visible = true
+"
+
+[sub_resource type="GDScript" id="GDScript_4j5ol"]
+script/source = "extends Button
+
+@export var from_line_edit:LineEdit
+@export var to_line_edit:LineEdit
+func _on_pressed() -> void:
+	if from_line_edit and to_line_edit:
+		to_line_edit.text = from_line_edit.text
+"
+
+[sub_resource type="GDScript" id="GDScript_v0l8b"]
+script/source = "extends OptionButton
+func _ready() -> void:
+	var index = Global.set_dic.get(name)
+	if index is int:
+		selected = index
+		item_selected.emit(selected)
+	else:
+		selected = 0
+		item_selected.emit(selected)
+func _on_item_selected(index: int) -> void:
+	match index:
+		0:
+			TranslationServer.set_locale(\"en\")
+			Global.set_dic[name] = 0
+		1:
+			TranslationServer.set_locale(\"zh-CN\")
+			Global.set_dic[name] = 1
+"
+
+[sub_resource type="GDScript" id="GDScript_p1hux"]
+script/source = "extends Window
+
+signal thread_finished
+@export var animation_player: AnimationPlayer
+
+@onready var fun: Label = $MarginContainer/HBoxContainer/fun
+
+
+func _ready() -> void:
+	visible = false
+
+	
+func show_win():
+	fun.text = \"Word\"+str(randi_range(1,7))
+	visible = true
+	animation_player.play(\"idle\")
+
+
+	
+func hide_win():
+	animation_player.stop()
+	visible = false
+
+	
+	
+
+		
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ha60"]
+bg_color = Color(0.27450982, 0.27450982, 0.27450982, 0.8745098)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.46229053, 0.46229064, 0.46229035, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Animation" id="Animation_4j5ol"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("point1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("point2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(31, 31)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("point1:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8.999985, 9)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("point2:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8.999981, 9)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("point3:size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, 9)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("point3:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15, 16)]
+}
+
+[sub_resource type="Animation" id="Animation_0ha60"]
+resource_name = "idle"
+length = 3.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("point1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.2, 2.2, 2.4, 3.4, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(31, 0), Vector2(31, 0), Vector2(31, 0), Vector2(31, 0), Vector2(31, 31), Vector2(31, 31)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("point2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.2, 2.2, 2.4, 3.4, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(31, 31), Vector2(0, 31), Vector2(0, 31), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("point1:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 1.2, 2.2, 2.4, 3.4, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(8.999985, 9), Vector2(8.999985, 9), Vector2(8.999985, 40), Vector2(8.999985, 40), Vector2(8.999985, 9), Vector2(8.999985, 9)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("point2:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(1, 1.2, 2.2, 2.4, 3.4, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(8.999981, 9), Vector2(8.999981, 9), Vector2(8.999981, 40), Vector2(8.999981, 40), Vector2(8.999981, 9), Vector2(8.999981, 9)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("point3:size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(1, 1.2, 2.2, 2.4, 3.4, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(9, 9), Vector2(9, 9), Vector2(9, 40), Vector2(9, 40), Vector2(9, 9), Vector2(9, 9)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("point3:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(1, 1.2, 2.2, 2.4, 3.4, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(15, 16), Vector2(15, 16), Vector2(15, 0), Vector2(15, 0), Vector2(15, 16), Vector2(15, 16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p1hux"]
+_data = {
+&"RESET": SubResource("Animation_4j5ol"),
+&"idle": SubResource("Animation_0ha60")
+}
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_no8bm")
+script = ExtResource("1_v0l8b")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.18717611, 0.18717614, 0.18717608, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "CompressionMode"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CompressionMode" type="OptionButton" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "GD"
+popup/item_0/id = 0
+popup/item_1/text = "Normal"
+popup/item_1/id = 1
+popup/item_1/disabled = true
+script = SubResource("GDScript_wp4xf")
+
+[node name="Panel" type="Panel" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer6/CompressionMode"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "exePath"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="exe_path" type="LineEdit" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.66
+placeholder_text = "exePath"
+script = SubResource("GDScript_brvut")
+
+[node name="Button" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("aim_line_edit")]
+layout_mode = 2
+theme_override_constants/icon_max_width = 25
+icon = ExtResource("2_wp4xf")
+script = SubResource("GDScript_0ha60")
+aim_line_edit = NodePath("../exe_path")
+
+[node name="FileDialog" type="FileDialog" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer3/Button"]
+oversampling_override = 1.0
+title = "Open a File"
+size = Vector2i(692, 360)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.exe")
+use_native_dialog = true
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "SavePath"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="save_path" type="LineEdit" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.66
+placeholder_text = "SavePath"
+script = SubResource("GDScript_brvut")
+
+[node name="Button" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("aim_line_edit")]
+layout_mode = 2
+theme_override_constants/icon_max_width = 25
+icon = ExtResource("2_wp4xf")
+script = SubResource("GDScript_0ha60")
+aim_line_edit = NodePath("../save_path")
+
+[node name="FileDialog" type="FileDialog" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer4/Button"]
+oversampling_override = 1.0
+size = Vector2i(692, 360)
+ok_button_text = "Open"
+access = 2
+filters = PackedStringArray("*.exe")
+use_native_dialog = true
+
+[node name="Button2" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("from_line_edit", "to_line_edit")]
+layout_mode = 2
+theme_override_constants/icon_max_width = 25
+icon = ExtResource("3_brvut")
+script = SubResource("GDScript_4j5ol")
+from_line_edit = NodePath("../../HBoxContainer3/exe_path")
+to_line_edit = NodePath("../save_path")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "CompressionLevels"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CompressionLevels" type="OptionButton" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+selected = 0
+item_count = 10
+popup/item_0/text = "1_fast"
+popup/item_0/id = 0
+popup/item_1/text = "2"
+popup/item_1/id = 1
+popup/item_2/text = "3"
+popup/item_2/id = 2
+popup/item_3/text = "4"
+popup/item_3/id = 3
+popup/item_4/text = "5"
+popup/item_4/id = 4
+popup/item_5/text = "6"
+popup/item_5/id = 5
+popup/item_6/text = "7"
+popup/item_6/id = 6
+popup/item_7/text = "8"
+popup/item_7/id = 7
+popup/item_8/text = "9"
+popup/item_8/id = 8
+popup/item_9/text = "10_best"
+popup/item_9/id = 9
+script = SubResource("GDScript_wp4xf")
+
+[node name="Panel" type="Panel" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer/CompressionLevels"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "LZMACompression"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LZMACompression" type="OptionButton" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "LZMAYes"
+popup/item_0/id = 0
+popup/item_1/text = "LZMANo"
+popup/item_1/id = 1
+script = SubResource("GDScript_wp4xf")
+
+[node name="Panel" type="Panel" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer5/LZMACompression"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "KeepBackupFiles"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeepBackupFiles" type="OptionButton" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "Yes"
+popup/item_0/id = 0
+popup/item_1/text = "No"
+popup/item_1/id = 1
+script = SubResource("GDScript_wp4xf")
+
+[node name="Panel" type="Panel" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer2/KeepBackupFiles"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="output" type="TextEdit" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Godot GUI UPX v1.0.0
+
+"
+editable = false
+context_menu_enabled = false
+emoji_menu_enabled = false
+wrap_mode = 1
+
+[node name="Button" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/output"]
+layout_mode = 0
+offset_left = 435.0
+offset_top = 8.0
+offset_right = 465.0
+offset_bottom = 38.0
+icon = ExtResource("4_0ha60")
+expand_icon = true
+
+[node name="Compression" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+text = "Compression"
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -598.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12955844, 0.12955847, 0.12955844, 1)
+
+[node name="name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.127
+offset_left = -31.0
+offset_right = -33.0
+offset_bottom = -34.296005
+text = "Godot GUI UPX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="name2" type="Label" parent="name"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99700004
+anchor_bottom = 0.108
+offset_left = 295.0
+offset_top = 17.0
+offset_right = -10.272034
+offset_bottom = 40.816
+theme_override_font_sizes/font_size = 15
+text = "1.1.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="infor" parent="name" instance=ExtResource("1_itxqv")]
+texture_filter = 2
+layout_mode = 0
+offset_left = 453.0
+offset_top = 18.0
+offset_right = 472.0
+offset_bottom = 37.129425
+text = "infor_introduce"
+
+[node name="Language" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 10.0
+offset_right = 563.0
+offset_bottom = 41.0
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "中文"
+popup/item_1/id = 1
+script = SubResource("GDScript_v0l8b")
+
+[node name="Panel" type="Panel" parent="Language"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="upx_win" type="Window" parent="." node_paths=PackedStringArray("animation_player")]
+transparent_bg = true
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(330, 195)
+visible = false
+transient = true
+exclusive = true
+borderless = true
+transparent = true
+script = SubResource("GDScript_p1hux")
+animation_player = NodePath("MarginContainer/HBoxContainer/Control/Control/AnimationPlayer")
+
+[node name="Panel" type="Panel" parent="upx_win"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ha60")
+
+[node name="MarginContainer" type="MarginContainer" parent="upx_win"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="VBoxContainer" parent="upx_win/MarginContainer"]
+layout_mode = 2
+
+[node name="headline" type="Label" parent="upx_win/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "UpxRunning"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="upx_win/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="Control" type="Control" parent="upx_win/MarginContainer/HBoxContainer/Control"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+size_flags_stretch_ratio = 7.0
+
+[node name="point1" type="ColorRect" parent="upx_win/MarginContainer/HBoxContainer/Control/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = -11.000015
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="point2" type="ColorRect" parent="upx_win/MarginContainer/HBoxContainer/Control/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 19.99998
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="point3" type="ColorRect" parent="upx_win/MarginContainer/HBoxContainer/Control/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="upx_win/MarginContainer/HBoxContainer/Control/Control"]
+libraries = {
+&"": SubResource("AnimationLibrary_p1hux")
+}
+speed_scale = 2.0
+
+[node name="fun" type="Label" parent="upx_win/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(2, 2)
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0.8089983, 0.8089983, 0.8089982, 1)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="item_selected" from="ColorRect/MarginContainer/VBoxContainer/HBoxContainer6/CompressionMode" to="ColorRect/MarginContainer/VBoxContainer/HBoxContainer6/CompressionMode" method="_on_item_selected"]
+[connection signal="focus_exited" from="ColorRect/MarginContainer/VBoxContainer/HBoxContainer3/exe_path" to="ColorRect/MarginContainer/VBoxContainer/HBoxContainer3/exe_path" method="_on_focus_exited"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/HBoxContainer3/Button" to="ColorRect/MarginContainer/VBoxContainer/HBoxContainer3/Button" method="_on_pressed"]
+[connection signal="file_selected" from="ColorRect/MarginContainer/VBoxContainer/HBoxContainer3/Button/FileDialog" to="ColorRect/MarginContainer/VBoxContainer/HBoxContainer3/exe_path" method="_on_file_dialog_file_selected"]
+[connection signal="focus_exited" from="ColorRect/MarginContainer/VBoxContainer/HBoxContainer4/save_path" to="ColorRect/MarginContainer/VBoxContainer/HBoxContainer4/save_path" method="_on_focus_exited"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/HBoxContainer4/Button" to="ColorRect/MarginContainer/VBoxContainer/HBoxContainer4/Button" method="_on_pressed"]
+[connection signal="file_selected" from="ColorRect/MarginContainer/VBoxContainer/HBoxContainer4/Button/FileDialog" to="ColorRect/MarginContainer/VBoxContainer/HBoxContainer4/save_path" method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/HBoxContainer4/Button2" to="ColorRect/MarginContainer/VBoxContainer/HBoxContainer4/Button2" method="_on_pressed"]
+[connection signal="item_selected" from="ColorRect/MarginContainer/VBoxContainer/HBoxContainer/CompressionLevels" to="ColorRect/MarginContainer/VBoxContainer/HBoxContainer/CompressionLevels" method="_on_item_selected"]
+[connection signal="item_selected" from="ColorRect/MarginContainer/VBoxContainer/HBoxContainer5/LZMACompression" to="ColorRect/MarginContainer/VBoxContainer/HBoxContainer5/LZMACompression" method="_on_item_selected"]
+[connection signal="item_selected" from="ColorRect/MarginContainer/VBoxContainer/HBoxContainer2/KeepBackupFiles" to="ColorRect/MarginContainer/VBoxContainer/HBoxContainer2/KeepBackupFiles" method="_on_item_selected"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/output/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/Compression" to="." method="_on_compression_pressed"]
+[connection signal="item_selected" from="Language" to="Language" method="_on_item_selected"]
